@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<project name="MyLog" default="all">
+	<target name="info">
+		<echo>Welcome my MyLog Application</echo>
+	</target>
+	
+	<property name="build.dir" value=".\build"/>
+	
+	<target name="clean" depends = "info">
+		<echo>Cleaning build folder</echo>
+		<delete includeEmptyDirs = "true">
+			<fileset dir = "${build.dir}" erroronmissingdir="false"/>
+		</delete> 
+	</target>
+	
+	<!--
+		Builds the web application target
+	-->
+	<target name = "webapp" depends="clean">
+		<mkdir dir="${build.dir}\webapp\WEB-INF\classes"/>
+		
+		<!-- Build the Tomcat source code. This elements allows us to build a path -->
+		<path id = "webapp.classpath">
+			<fileset dir=".\src\server\tomcat\WEB-INF\lib" includes="*.jar"/>
+			<fileset dir=".\src\server\tomcat\lib_build_only\tomcat_6.0.35\lib" includes="*.jar"/>
+		</path>
+		
+		<javac 
+			sourcepath="" srcdir=".\src\server\tomcat\WEB-INF\src"
+			destdir="${build.dir}\webapp\WEB-INF\classes" 
+			classpath = "${toString:webapp.classpath}"
+			includeantruntime = "no">
+			<include name="**/*.java"/>	
+		</javac>
+		
+		<!-- 
+			Copy all other files to the web-app build folder 
+		-->
+		<copy todir="${build.dir}\webapp\js">
+			<fileset dir=".\src\server\tomcat\js"/>
+		</copy>
+		
+		<copy todir="${build.dir}\webapp\lib">
+			<fileset dir=".\src\server\tomcat\lib"/>
+		</copy>
+		
+		<copy todir="${build.dir}\webapp\jsp">
+			<fileset dir=".\src\server\tomcat\jsp"/>
+		</copy>
+		
+		<copy todir="${build.dir}\webapp\images">
+			<fileset dir=".\src\server\tomcat\images"/>
+		</copy>
+		
+		<copy todir="${build.dir}\webapp\html">
+			<fileset dir=".\src\server\tomcat\html"/>
+		</copy>
+		
+		<copy todir="${build.dir}\webapp\css">
+			<fileset dir=".\src\server\tomcat\css"/>
+		</copy>
+		
+		<copy todir="${build.dir}\webapp\WEB-INF\lib">
+			<fileset dir=".\src\server\tomcat\WEB-INF\lib"/>
+		</copy>
+		
+		<copy todir="${build.dir}\webapp\WEB-INF">
+			<fileset dir = ".\src\server\tomcat\WEB-INF">
+				<include name="*.xml"/>
+			</fileset>
+		</copy>
+		
+		<!--
+			Build the WAR file - from our build output
+		-->
+		<war destfile="${build.dir}\MyLog.war">
+		  <lib dir="${build.dir}\webapp\WEB-INF\lib"/>
+		  <classes dir="${build.dir}\webapp\WEB-INF\classes"/>
+		  
+		  <fileset dir="${build.dir}\webapp">
+			<include name ="**/*.*" />
+			<exclude name = "WEB-INF/*.*" />
+		  </fileset>
+		  
+		  <fileset dir="${build.dir}\webapp">
+			<include name ="WEB-INF\*.xml" />
+		  </fileset>
+		</war>
+	</target>
+	
+	<!-- 
+		Builds all the targets
+	-->
+	<target name = "all" depends="webapp">
+		
+	</target>
+</project>

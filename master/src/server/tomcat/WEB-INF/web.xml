@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app>
+
+    <servlet>
+
+        <servlet-class>
+			example.MyServlet
+        </servlet-class>
+
+        <servlet-name>
+			morne
+        </servlet-name>
+    </servlet>
+
+    <servlet-mapping>
+
+        <servlet-name>
+			morne
+        </servlet-name>
+
+        <url-pattern>
+			/servlet/MyServlet
+        </url-pattern>
+    </servlet-mapping>
+
+
+	<listener>
+        <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>Adder</servlet-name>
+        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Adder</servlet-name>
+        <url-pattern>/MyService2</url-pattern>
+    </servlet-mapping>
+
+	<!--
+		Define our REST application
+
+		The Jersey ServletContainer allows us to register an application class here.
+		And that application class registers the resources, by means of annotations, etc.
+		This keeps our config simple here.
+	-->
+
+	<servlet>
+        <servlet-name>MyRESTApplication</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>javax.ws.rs.Application</param-name>
+            <param-value>com.mylog.service.rest.MyLogRESTApplication</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>MyRESTApplication</servlet-name>
+        <url-pattern>/service/rest/*</url-pattern>
+    </servlet-mapping>
+
+</web-app>
+

@@ -1,0 +1,18 @@
+body {
+	font-size: 8pt;
+	font-family: "Verdana";
+}
+.demo-description {
+	clear: both;
+	padding: 12px;
+	
+	line-height: 1.4em;
+}
+
+.my-dialog {
+	font-size: 8pt;
+}
+
+.ui-draggable, .ui-droppable {
+	background-position: top;
+}
