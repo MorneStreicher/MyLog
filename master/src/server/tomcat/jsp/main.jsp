@@ -1,3 +1,7 @@
+<%@ page language="java" session="true" contentType="text/html; charset=iso-8859-1" %>
+<%@ page import="com.mylog.ui.*" %>
+<%@ page import="java.util.*" %>
+
 <!doctype html>
 <head>
 	<title>Morne Test - Main</title>
@@ -7,6 +11,7 @@
 
 	<script src="../lib/jquery/jquery-1.9.1.js"></script>
 	<script src="../lib/jquery/jquery-ui.js"></script>
+	<script src="../js/main.js"></script>
 
 	<style>
 		<style type=text/css>
@@ -24,50 +29,61 @@
 	</script>
 </head>
 	<body id = "main-body">
-		<div id = "div-logo">
-			Logo to be placed here
+		<div id = "div-logo" style = "text-align: center">
+			<img src = "../images/logo/mylog_topleft_logo.jpg" width = "120px" height = "76px"/>
 		</div>
 
 		<div id = "div-header">
-			Header to be placed here
+			<table border = 0 width = "100%" height = "100%">
+				<tr>
+					<td width="200px"><span style = "font-size: 40pt; color: #AAAAAA;">My Log</span></td>
+					<td style = "vertical-align:bottom">
+						<span style = "font-size: 14pt; color: #909090; vertical-align:bottom">
+							An online application for all your logging requirements
+						</span>
+					</td>
+				</tr>
+			</table>
 		</div>
 
 		<div id = "div-left">
 
 			<div id="accordion">
-				<h1 style = "font-size : 10pt;">Section 1</h1>
+<%
+			MainForm mainForm = new MainForm (request);
+			List<MainForm.Section> sections = mainForm.getSections();
+			String firstUrl = sections.get(0).getItems().get(0).getUrl();
+			for (MainForm.Section cur: sections)
+			{
+%>
+				<h1 style = "font-size : 10pt;"><%=cur.getName()%></h1>
 				<div>
-					xxx
+<%
+				List<MainForm.SectionItem> items = cur.getItems();
+				for (MainForm.SectionItem curItem: items)
+				{
+%>
 					<p style = "font-size : 10pt;">
-						Some content
+						<a href = "" onclick = "MainForm.loadContent('<%=curItem.getUrl()%>'); return false;"><%=curItem.getName()%></a>
 					</p>
-					<p style = "font-size : 10pt;">
-						Some content 2
-					</p>
+<%
+				}
+%>
 				</div>
-				<h1 style = "font-size : 10pt;">Section 2</h1>
-				<div>
-					<p>
-
-					</p>
-				</div>
-				<h1 style = "font-size : 10pt;">Section 3</h1>
-				<div>
-					<p>
-					</p>
-				</div>
-				<h1 style = "font-size : 10pt;">Section 4</h1>
-				<div>
-					<p>
-
-					</p>
-				</div>
+<%
+			}
+%>
 			</div>
-
 		</div>
 
 		<div id = "div-main">
-			Main menu to be placed here
+			Main content to be placed here
 		</div>
 	</body>
 </html>
+<%
+	// We load the first screen by default
+%>
+<script>
+	MainForm.loadContent('<%=firstUrl%>');
+</script>

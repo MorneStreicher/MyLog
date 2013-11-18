@@ -20,11 +20,12 @@ body {
 	bottom: 0px;
 	left: 0px;
 	right: 0px;
-	width: 200px;
-	height: 80px;
+	width: 196px;
+	height: 76px;
 	background-color: #FAFAFA;
 	margin: 2px;
 	border: 1px solid #AAAAAA;
+	padding: 2px;
 }
 
 #div-header {
@@ -62,4 +63,5 @@ body {
 	background-color: #FAFAFA;
 	margin: 2px;
 	border: 1px solid #AAAAAA;
+	padding: 2px;
 }
