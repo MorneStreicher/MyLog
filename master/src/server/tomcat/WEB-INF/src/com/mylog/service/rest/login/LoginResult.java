@@ -9,8 +9,9 @@ public class LoginResult
 
 	public String errorMessage;
 
-	public int [] list = new int [] {1, 2, 3, 4, 5};
-
+	/**
+	 * Default constructor. This is required for JAXB, I think.
+	 */
 	public LoginResult()
 	{
 

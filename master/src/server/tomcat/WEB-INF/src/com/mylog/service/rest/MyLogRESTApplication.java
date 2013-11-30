@@ -20,15 +20,7 @@ public class MyLogRESTApplication
 {
 	public MyLogRESTApplication()
 	{
-		try
-		{
-			//JAXBContext.newInstance(LoginResult.class);
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-
+		// Nothing to do here
 	}
 
     @Override
@@ -37,7 +29,6 @@ public class MyLogRESTApplication
         final Set<Class<?>> classes = new HashSet<Class<?>>();
 
         classes.add(Login.class);
-
 
         return classes;
     }

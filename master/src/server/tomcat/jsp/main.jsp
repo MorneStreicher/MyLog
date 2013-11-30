@@ -36,11 +36,14 @@
 		<div id = "div-header">
 			<table border = 0 width = "100%" height = "100%">
 				<tr>
-					<td width="200px"><span style = "font-size: 40pt; color: #AAAAAA;">My Log</span></td>
+					<td width="200px"><span style = "font-size: 40pt; color: #555555;">My Log</span></td>
 					<td style = "vertical-align:bottom">
 						<span style = "font-size: 14pt; color: #909090; vertical-align:bottom">
 							An online application for all your logging requirements
 						</span>
+					</td>
+					<td>
+						<img id = "id_ajax_icon" src = "../images/ajax/ajax-square.gif" />
 					</td>
 				</tr>
 			</table>
@@ -77,7 +80,7 @@
 		</div>
 
 		<div id = "div-main">
-			Main content to be placed here
+			Please wait while the page loads...
 		</div>
 	</body>
 </html>
@@ -86,4 +89,5 @@
 %>
 <script>
 	MainForm.loadContent('<%=firstUrl%>');
+	$("#id_ajax_icon").hide();
 </script>
